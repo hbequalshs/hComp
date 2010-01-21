@@ -41,9 +41,20 @@ negate = operateOneArg (-!)
 
 --two argument
 add, mul, sub :: (Num a) => StackMachine a -> StackMachine a
-add  = operateTwoArgs (+)
+add = operateTwoArgs (+)
 mul = operateTwoArgs (*)
-sub  = operateTwoArgs (-)
+sub = operateTwoArgs (-)
+
+div :: StackMachine Double -> StackMachine Double
+div = operateTwoArgs (/!)
+
+
+eq, lt, leq, gt, geq :: StackMachine Double -> StackMachine Double
+eq  = operateTwoArgs (==!)
+lt  = operateTwoArgs (>!)
+leq = operateTwoArgs (>=!)
+gt  = operateTwoArgs (<!)
+geq = operateTwoArgs (<=!)
 
 -- tests
 -- one argument
@@ -60,6 +71,12 @@ test_op1 op =
 test_add = test_op2 add
 test_mul = test_op2 mul
 test_sub = test_op2 sub
+test_div = test_op2 StackMachine.div
+test_eq  = test_op2 eq
+test_lt  = test_op2 lt
+test_leq = test_op2 leq
+test_gt  = test_op2 gt
+test_geq = test_op2 geq
 
 test_op2 op =
   let a = StackMachine.initialize
