@@ -2,9 +2,11 @@
 
 module Operators where
 
+import Prelude hiding (compare)
+
 -- one argument
 (-!) :: (Num a) => a -> a
-(-!) = Prelude.negate 
+(-!) = negate 
 
 -- two argument
 division :: (Fractional a) => (a -> a -> a)
@@ -19,13 +21,17 @@ compare true false op a b
   | otherwise = false
 
 compareOneZero :: (a -> a -> Bool) -> a -> a -> Double
-compareOneZero = Operators.compare 1.0 0.0
+compareOneZero = compare 1.0 0.0
 
 equal, less, lessEqual, greater, greaterEqual :: (Ord a) => a -> a -> Double
 
 equal = compareOneZero (==)
 (==!) = equal
 infix 4 ==!
+
+notequal = compareOneZero (/=)
+(/=!)    = notequal
+infix 4 /=!
 
 less = compareOneZero (<)
 (<!) = less
