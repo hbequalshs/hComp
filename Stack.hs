@@ -41,20 +41,19 @@ takeTwoArgs :: Stack a -> (a, a, Stack a)
 takeTwoArgs (s2:s1:stack) = (s1, s2, stack)
 takeTwoArgs _             = error "takeTwo: stack empty"
 
-read :: (Ord a, Num a) => a -> Stack b -> (b, Stack b)
-read n stack 
+read :: (Ord a, Num a) => a -> Stack b -> Stack b
+read n stack  
   | n < 0     = error "read: argument must be positive"
-  | otherwise = getAndRemove n stack []
+  | otherwise = getAndPush n stack []
 
-getAndRemove :: (Num a) => a -> [b] -> [b] -> (b, [b]) 
-getAndRemove 0 (s:stackEnd) stackStart = (s, revapp stackStart stackEnd)
-getAndRemove n (s:stackEnd) stackStart = getAndRemove (n-1) stackEnd (s:stackStart)
-getAndRemove _ _            _          = error "read(getAndRemove): stack empty"
+getAndPush :: (Num a) => a -> [b] -> [b] -> [b] 
+getAndPush 0 (s:stackEnd) stackStart = s : (revapp stackStart (s:stackEnd))
+getAndPush n (s:stackEnd) stackStart = getAndPush (n-1) stackEnd (s:stackStart)
+getAndPush _ _            _          = error "read(getAndPush): stack empty"
 
 write :: (Ord a, Num a) => a -> Stack b -> Stack b
 write n (s0:stack)
   | n < 0     = error "write: argument must be positive"
-  | n == 0    = s0 : stack
   | otherwise = putInside n s0 stack [] 
 write _ []    = error "write: nothing to write"
 
@@ -73,21 +72,21 @@ test_pop0         = test_op0 pop
 test_top0         = test_op0 top
 test_takeOneArg0  = test_op0 takeOneArg
 test_takeTwoArgs0 = test_op0 takeTwoArgs
-test_get0         = test_op0 (read (-1))
+test_read0         = test_op0 (read (-1))
 
 test_push1        = test_op1 id
 test_pop1         = test_op1 pop
 test_top1         = test_op1 top
 test_takeOneArg1  = test_op1 takeOneArg
 test_takeTwoArgs1 = test_op1 takeTwoArgs
-test_get1         = test_op1 (read 1)
+test_read1         = test_op1 (read 1)
 
 test_push2        = test_op2 id
 test_pop2         = test_op2 pop
 test_top2         = test_op2 top
 test_takeOneArg2  = test_op2 takeOneArg
 test_takeTwoArgs2 = test_op2 takeTwoArgs
-test_get2         = test_op2 (read 1)
+test_read2         = test_op2 (read 1)
 
 test_op0 op =
   let a = initialize

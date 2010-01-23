@@ -16,8 +16,9 @@ initialize = StackMachine Stack.initialize Stack.initialize
 push :: a -> StackMachine a -> StackMachine a
 push  = simpleOpOneArg Stack.push
 
-write :: (Ord a, Num a) => a -> StackMachine a -> StackMachine a
+read, write :: (Ord a, Num a) => a -> StackMachine a -> StackMachine a
 write = simpleOpOneArg Stack.write
+read  = simpleOpOneArg Stack.read
 
 simpleOpOneArg :: (t -> Stack.Stack a -> Stack.Stack a) -> t -> StackMachine a -> StackMachine a
 simpleOpOneArg op a sM = StackMachine (op a arguments) addresses
@@ -31,13 +32,13 @@ pop sM = StackMachine (Stack.pop arguments) addresses
 
 -- operations
 operateOneArg :: (a -> a) -> (Stack.Stack a -> (a, Stack.Stack a)) -> StackMachine a -> StackMachine a
-operateOneArg op exOp sM = StackMachine (op arg : stack) addresses
+operateOneArg op exOp sM = StackMachine (Stack.push (op arg) stack) addresses
     where arguments = argumentStack sM
           addresses = addressStack sM
           (arg, stack) = exOp arguments
 
 operateTwoArgs :: (a -> a -> a) -> StackMachine a -> StackMachine a
-operateTwoArgs op sM = StackMachine (arg1 `op` arg2 : stack) addresses
+operateTwoArgs op sM = StackMachine (Stack.push(arg1 `op` arg2) stack) addresses
     where arguments = argumentStack sM
           addresses = addressStack sM
           (arg1, arg2, stack) = Stack.takeTwoArgs arguments
@@ -45,9 +46,6 @@ operateTwoArgs op sM = StackMachine (arg1 `op` arg2 : stack) addresses
 -- one argument
 neg :: (Num a) => StackMachine a -> StackMachine a
 neg = operateOneArg (-!) Stack.takeOneArg 
-
-read :: (Ord a, Num a) => a -> StackMachine b -> StackMachine b
-read n = operateOneArg id $ Stack.read n
 
 --two argument
 add, mul, sub :: (Num a) => StackMachine a -> StackMachine a
