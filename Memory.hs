@@ -5,11 +5,14 @@ module Memory (Memory) where
   data Memory a = Mem [a] [a]
                   deriving (Show)
 
+  next :: Memory a -> Memory a
   next (Mem _  []      ) = error "move: out of memory range"
   next (Mem fs (r : rs)) = Mem (r : fs) rs 
 
+  swap :: Memory a -> Memory a
   swap (Mem f s) = Mem s f
 
+  moveF, moveB :: (Num t) => t -> Memory a -> Memory a
   moveF 0 mem = mem 
   moveF n mem = moveF (n - 1) $ next mem
 
