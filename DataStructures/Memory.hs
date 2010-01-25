@@ -1,4 +1,4 @@
-module Memory (Memory) where
+module Memory (Memory, load, move) where
 
   import Tape 
 

@@ -1,3 +1,5 @@
+-- These things don't work for now!!!
+
 -- tests stack
 test_initialize0  = test_op0 id
 test_pop0         = test_op0 pop
@@ -34,3 +36,32 @@ let a = initialize
 b = push 1 a
 c = push 2 b
 in op c
+
+-- Tests for Assembler 
+test_push = test_op1 id
+test_pop  = test_op1 pop
+test_neg  = test_op1 neg
+
+test_op1 op =
+  let a = initialize
+      b = push 1 a
+  in op b
+
+test_add   = test_op2 add
+test_mul   = test_op2 mul
+test_sub   = test_op2 sub
+test_div   = test_op2 div
+test_eq    = test_op2 eq
+test_neq   = test_op2 neq
+test_lt    = test_op2 lt
+test_leq   = test_op2 leq
+test_gt    = test_op2 gt
+test_geq   = test_op2 geq
+test_read  = test_op2 (read 1)
+test_write = test_op2 (write 1)
+
+test_op2 op =
+  let a = initialize
+      b = push 10 a
+      c = push 2  b
+  in op c

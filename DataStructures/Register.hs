@@ -1,6 +1,6 @@
 -- A simple stack module --
 
-module Register (Register) where
+module Register (Register, empty, push, pop, top, read, write, take1Arg, take2Args) where
 
   import Prelude hiding (read)
   import Stack
@@ -14,7 +14,7 @@ module Register (Register) where
   getAndPush _ _            _  = error "read(getAndPush): register empty"
   
   putInside :: (Num t) => t -> a -> [a] -> [a] -> [a]
-  putInside 0 x0 xs       ys = revapp ys (x0 : xs)   
+  putInside 0 x0 xs       ys = revapp (x0 : xs) ys  
   putInside n x0 (x : xs) ys = putInside (n - 1) x0 xs (x : ys)
   putInside _ _  _        _  = error "write(putInside): register empty"
 
