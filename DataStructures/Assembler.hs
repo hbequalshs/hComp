@@ -1,12 +1,12 @@
--- stack machine --
 module Assembler(Assembler) where
-
+-- {{{ imports
   import Prelude hiding (div, read)
   import qualified Memory   as Mem
   import qualified Register as Reg
   import StackMachine
   import Operators
-
+-- }}}
+-- {{{ data and type declarations
   data Assembler a b = ASM { 
                            memory :: Memory a
                         ,  argRR  :: Register b
@@ -15,7 +15,8 @@ module Assembler(Assembler) where
 
   type Memory   a = Mem.Memory a
   type Register a = Reg.Register a
-
+-- }}}
+-- {{{ local functions
   simpleOp1Arg :: (t -> Register b -> Register b) -> t -> Assembler a b -> Assembler a b 
   simpleOp1Arg op a asm = ASM mem (op a args) adrs
       where mem  = memory asm
@@ -35,7 +36,8 @@ module Assembler(Assembler) where
             args         = argRR  asm
             adrs         = adrRR  asm
             (a1, a2, as) = Reg.take2Args args
-
+-- }}}
+-- {{{ instance implementaion 
   instance StackMachine Assembler where
     load program = ASM (Mem.load program) Reg.empty Reg.empty
 
@@ -63,3 +65,4 @@ module Assembler(Assembler) where
     leq = operate2Args (<=!)
     gt  = operate2Args (>!)
     geq = operate2Args (>=!)
+-- }}}
