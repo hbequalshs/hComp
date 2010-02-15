@@ -1,10 +1,12 @@
-module Assembler(Assembler) where
+module Structure.Instance.Assembler
+  (Assembler) where
+
 -- {{{ imports
   import Prelude hiding (div, read)
-  import qualified Memory   as Mem
-  import qualified Register as Reg
-  import StackMachine
-  import Operators
+  import qualified Structure.Instance.Memory   as Mem
+  import qualified Structure.Instance.Register as Reg
+  import Structure.Class.StackMachine
+  import Functionality.Operator
 -- }}}
 -- {{{ data and type declarations
   data Assembler a b = ASM { 

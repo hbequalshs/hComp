@@ -1,6 +1,9 @@
-module Memory (Memory, load, move) where
+module Structure.Instance.Memory 
+  ( Memory
+  , load
+  , move) where
 
-  import Tape 
+  import Structure.Class.Tape 
 
   data Memory a = Mem [a] [a]
                   deriving (Show)

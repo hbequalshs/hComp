@@ -1,6 +1,6 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
-module Operators where
+module Functionality.Operator where
 
 import Prelude hiding (compare)
 

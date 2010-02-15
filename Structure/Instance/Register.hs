@@ -1,9 +1,16 @@
--- A simple stack module --
-
-module Register (Register, empty, push, pop, top, read, write, take1Arg, take2Args) where
+module Structure.Instance.Register 
+  ( Register
+  , empty
+  , push
+  , pop
+  , top
+  , read
+  , write
+  , take1Arg
+  , take2Args) where
 
   import Prelude hiding (read)
-  import Stack
+  import Structure.Instance.Stack
 
   data Register a = Reg [a]
                     deriving (Show)

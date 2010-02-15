@@ -1,4 +1,5 @@
-module StackMachine (StackMachine(..)) where
+module Structure.Class.StackMachine 
+  (StackMachine(..)) where
 
   class StackMachine sm where
     load  :: [a] -> sm a b    

@@ -1,4 +1,5 @@
-module Tape (Tape(..)) where
+module Structure.Class.Tape 
+  (Tape(..)) where
 
   class Tape t where
     load :: [a] -> t a

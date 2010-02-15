@@ -1,4 +1,5 @@
-module Stack (Stack(..)) where
+module Structure.Class.Stack 
+  (Stack(..)) where
 
   class Stack s where
     empty     :: s a
