@@ -1,2 +1,0 @@
-Ins {op_code = 15, argument = Just "1.0"}
-Ins {op_code = 23, argument = Just "2.0"}

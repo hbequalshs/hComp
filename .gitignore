@@ -1,5 +1,4 @@
 asm
 run
-AsmCompiler/*
-AsmRunner/*
-git-clean-cached.sh  
+AsmCompiler/**/*
+AsmRunner/**/*
