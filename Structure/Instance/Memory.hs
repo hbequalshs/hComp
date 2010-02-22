@@ -1,8 +1,10 @@
 module Structure.Instance.Memory 
   ( Memory
   , load
-  , move) where
+  , move
+  , read) where
 
+  import Prelude hiding (read)
   import Structure.Class.Tape 
 
   data Memory a = Mem [a] [a]
@@ -30,3 +32,6 @@ module Structure.Instance.Memory
         | n == 0    = mem 
         | otherwise = moveF n mem 
       where swappedMem = swap mem
+
+    read (Mem _ [])     = Nothing
+    read (Mem _ (x:xs)) = Just x

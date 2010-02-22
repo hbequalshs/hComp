@@ -1,5 +1,7 @@
+Ins {op_code = 19, argument = Just "16"}
 Ins {op_code = 18, argument = Just "0"}
 Ins {op_code = 15, argument = Just "0.0"}
+Ins {op_code = 7, argument = Nothing}
 Ins {op_code = 21, argument = Just "4"}
 Ins {op_code = 1, argument = Nothing}
 Ins {op_code = 15, argument = Just "1.0"}
@@ -8,6 +10,9 @@ Ins {op_code = 18, argument = Just "0"}
 Ins {op_code = 18, argument = Just "1"}
 Ins {op_code = 15, argument = Just "1.0"}
 Ins {op_code = 5, argument = Nothing}
-Ins {op_code = 22, argument = Just "-10"}
+Ins {op_code = 22, argument = Just "-11"}
 Ins {op_code = 4, argument = Nothing}
 Ins {op_code = 23, argument = Just "1"}
+Ins {op_code = 13, argument = Nothing}
+Ins {op_code = 15, argument = Just "7.0"}
+Ins {op_code = 22, argument = Just "-16"}

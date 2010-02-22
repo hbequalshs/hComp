@@ -1,0 +1,7 @@
+Ins {op_code = 15, argument = Just "2.0"}
+Ins {op_code = 20, argument = Just "3"}
+Ins {op_code = 15, argument = Just "1.0"}
+Ins {op_code = 19, argument = Just "4"}
+Ins {op_code = 15, argument = Just "0.0"}
+Ins {op_code = 19, argument = Just "-4"}
+Ins {op_code = 19, argument = Just "1"}

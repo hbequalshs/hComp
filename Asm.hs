@@ -1,9 +1,6 @@
 module Main where
  -- {{{ imports
   import Prelude hiding (div, read)
---  import qualified Structure.Instance.Memory   as Mem
---  import qualified Structure.Instance.Register as Reg
---  import Structure.Instance.Assembler   as Asm
   import qualified Structure.Instance.Instruction as Ins
   import System.Environment (getArgs)
 -- }}}

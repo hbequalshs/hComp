@@ -11,6 +11,7 @@ module Structure.Class.Stack
 
     read      :: (Ord t, Num t) => t -> s a -> s a
     write     :: (Ord t, Num t) => t -> s a -> s a
-    
+    store     :: (Ord t, Num t) => t -> s a -> s a
+
     take1Arg  :: s a -> (a, s a)
     take2Args :: s a -> (a, a, s a)

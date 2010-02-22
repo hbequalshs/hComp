@@ -1,5 +1,8 @@
 module Structure.Instance.Assembler
-  (Assembler) where
+  ( Assembler, show, load, readM, next, top, push
+  , write, read, pop, neg, add, mul, sub, div, eq
+  , neq, lt, leq, gt, geq, jump, jnon0, jump0 
+  , store, ret, call ) where
 
 -- {{{ imports
   import Prelude hiding (div, read)
@@ -38,14 +41,32 @@ module Structure.Instance.Assembler
             args         = argRR  asm
             adrs         = adrRR  asm
             (a1, a2, as) = Reg.take2Args args
+
+  
+  moveIf :: (Ord t, Num t) => (a -> Bool) -> t -> Assembler b a -> (t, Assembler b a)
+  moveIf op n asm 
+    | op a      = (n, ASM (Mem.move n mem) as adrs)
+    | otherwise = (1, ASM (Mem.move 1 mem) as adrs)
+      where mem     = memory asm
+            args    = argRR  asm
+            adrs    = adrRR  asm
+            (a, as) = Reg.take1Arg args
 -- }}}
 -- {{{ instance implementaion 
   instance StackMachine Assembler where
     load program = ASM (Mem.load program) Reg.empty Reg.empty
+    readM    asm = Mem.read $ memory asm
+    next     asm = ASM (Mem.move 1 mem) args adrs
+        where mem  = memory asm
+              args = argRR  asm
+              adrs = adrRR  asm
+
+    top   = Reg.top . argRR
 
     push  = simpleOp1Arg Reg.push
-    write = simpleOp1Arg Reg.write
     read  = simpleOp1Arg Reg.read
+    write = simpleOp1Arg Reg.write
+    store = simpleOp1Arg Reg.store
 
     pop asm =  ASM mem (Reg.pop args) adrs
         where mem  = memory asm
@@ -67,4 +88,24 @@ module Structure.Instance.Assembler
     leq = operate2Args (<=!)
     gt  = operate2Args (>!)
     geq = operate2Args (>=!)
+
+    jump n asm = ASM (Mem.move n mem) args adrs
+      where mem     = memory asm
+            args    = argRR  asm
+            adrs    = adrRR  asm
+
+    jnon0 = moveIf (0 /=) 
+    jump0 = moveIf (0 ==)
+
+    call retA n asm = jump n (ASM mem args (Reg.push retA adrs))
+      where mem     = memory asm
+            args    = argRR  asm
+            adrs    = adrRR  asm
+    
+    ret curA asm = (adr, jump adr (ASM mem args as))
+      where mem     = memory asm
+            args    = argRR  asm
+            adrs    = adrRR  asm
+            (a, as) = Reg.take1Arg adrs
+            adr     = a - curA
 -- }}}

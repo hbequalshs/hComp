@@ -1,13 +1,14 @@
 module Structure.Instance.Instruction
-  ( Instruction
-  , parseAll) where
+  ( Instruction(..)
+  , parseAll
+  , read) where
 
   import Structure.Class.Code
 
   data Instruction a = Ins {
                      op_code  :: Integer
                    , argument :: Maybe a
-                   } deriving (Show)
+                   } deriving (Show, Read)
 
   getArgument :: Instruction String -> String
   getArgument ins =

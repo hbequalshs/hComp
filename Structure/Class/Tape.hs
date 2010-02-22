@@ -5,3 +5,5 @@ module Structure.Class.Tape
     load :: [a] -> t a
 
     move :: (Ord a, Num a) => a -> t b -> t b
+
+    read :: t a -> Maybe a

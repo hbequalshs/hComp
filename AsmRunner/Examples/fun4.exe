@@ -1,0 +1,5 @@
+Ins {op_code = 15, argument = Just "1.0"}
+Ins {op_code = 15, argument = Just "2.0"}
+Ins {op_code = 3, argument = Nothing}
+Ins {op_code = 15, argument = Just "3.0"}
+Ins {op_code = 4, argument = Nothing}
